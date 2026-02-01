@@ -1,6 +1,11 @@
 using UnityEngine;
 
-public class GADrawCard : GameAction
+public class GADrawCards : GameAction
 {
-  
+  public int Amount { get; set; }
+
+  public GADrawCards(int amount)
+  {
+    Amount = amount;
+  }
 }
