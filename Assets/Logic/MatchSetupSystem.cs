@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MatchSetupSystem : MonoBehaviour
+{
+    [SerializeField] private List<CardData> deckData;
+
+    private void Start()
+    {
+        CardSystem.Instance.Setup(deckData);
+        GADrawCards gaDrawCards = new (5);
+        ActionSystem.Instance.Perform(gaDrawCards); 
+    }
+}

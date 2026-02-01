@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff60472eae38d8845b1175182253748e, type: 3}
+  m_Name: Draw
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  <Title>k__BackingField: Draw
+  <Description>k__BackingField: Draw 2 more cards
+  <Mana>k__BackingField: 2
+  <Image>k__BackingField: {fileID: 21300000, guid: 7f095ab986d96a1459d9abfb51d29793, type: 3}
+  <Effects>k__BackingField:
+  - rid: 2964819535347319075
+  references:
+    version: 2
+    RefIds:
+    - rid: 2964819535347319075
+      type: {class: DrawCardsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        drawAnount: 2
