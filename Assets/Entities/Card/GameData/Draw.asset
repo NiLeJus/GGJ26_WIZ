@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Draw
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   <Title>k__BackingField: Draw
-  <Description>k__BackingField: Draw 2 more cards
+  <Description>k__BackingField: Draw 2 cards
   <Mana>k__BackingField: 2
-  <Image>k__BackingField: {fileID: 21300000, guid: 7f095ab986d96a1459d9abfb51d29793, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: b32b85b3fb10c3645ba7604f8fff7c60, type: 3}
   <Effects>k__BackingField:
   - rid: 2964819535347319075
   references:

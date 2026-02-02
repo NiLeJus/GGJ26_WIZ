@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public class GAHeal : GameAction
+{
+    public int Amount { get; set; }
+    public List<CombatantView> Targets { get; set; }
+
+    public GAHeal(int amount, List<CombatantView> targets)
+    {
+        Amount = amount;
+        Targets = new List<CombatantView>(targets);
+    }
+}
