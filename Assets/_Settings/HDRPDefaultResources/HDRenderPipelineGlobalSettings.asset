@@ -198,28 +198,7 @@ MonoBehaviour:
       - rid: 2964819512073912348
       - rid: 2964819512073912349
     m_RuntimeSettings:
-      m_List:
-      - rid: 8556427327610290176
-      - rid: 8556427327610290180
-      - rid: 2964819512073912321
-      - rid: 2964819512073912322
-      - rid: 2964819512073912324
-      - rid: 2964819512073912325
-      - rid: 2964819512073912327
-      - rid: 2964819512073912328
-      - rid: 2964819512073912330
-      - rid: 2964819512073912331
-      - rid: 2964819512073912332
-      - rid: 2964819512073912335
-      - rid: 2964819512073912336
-      - rid: 2964819512073912339
-      - rid: 2964819512073912340
-      - rid: 2964819512073912341
-      - rid: 2964819512073912342
-      - rid: 2964819512073912344
-      - rid: 2964819512073912345
-      - rid: 2964819512073912347
-      - rid: 2964819512073912348
+      m_List: []
   renderingLayerNames:
   - Light Layer default
   - Light Layer 1
@@ -520,10 +499,7 @@ MonoBehaviour:
           m_CustomPostProcessTypesAsString: []
         m_BeforePostProcessCustomPostProcesses:
           m_InjectionPoint: 1
-          m_CustomPostProcessTypesAsString:
-          - PixelationEffect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          - Dithering, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_CustomPostProcessTypesAsString: []
         m_AfterPostProcessBlursCustomPostProcesses:
           m_InjectionPoint: 4
           m_CustomPostProcessTypesAsString: []
