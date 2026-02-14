@@ -13,15 +13,25 @@ MonoBehaviour:
   m_Name: Claws
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   <Title>k__BackingField: Claws
-  <Description>k__BackingField: "D\xE9chire la cible"
-  <Mana>k__BackingField: 3
+  <Description>k__BackingField: "D\xE9chire les cibles"
+  <Mana>k__BackingField: 2
   <Image>k__BackingField: {fileID: 21300000, guid: c56a9f767293b2048a1441796e31e37a, type: 3}
-  <Effects>k__BackingField:
-  - rid: 2631164346320289873
+  <ManualTargetEffect>k__BackingField:
+    rid: -2
+  <OtherEffects>k__BackingField:
+  - <TargetMode>k__BackingField:
+      rid: 7024276393041854555
+    <Effect>k__BackingField:
+      rid: 7024276393041854553
   references:
     version: 2
     RefIds:
-    - rid: 2631164346320289873
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7024276393041854553
       type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageAmount: 6
+        damageAmount: 20
+    - rid: 7024276393041854555
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 

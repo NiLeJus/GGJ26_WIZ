@@ -11,14 +11,14 @@ public class ManaSystem : Singleton<ManaSystem>
 
     void OnEnable()
     {
-        ActionSystem. AttachPerformer<GASpendMana>(SpendManaPerformer);
+        ActionSystem. AttachPerformer<SpendManaGAction>(SpendManaPerformer);
         ActionSystem. AttachPerformer<GARefillMana>(RefillManaPerformer);
         ActionSystem. SubscribeReaction<GAEnemyTurn>(EnemyTurnPostReaction, ReactionTiming.POST);
     }
     
     void OnDisable()
     {
-        ActionSystem.DetachPerformer<GASpendMana>();
+        ActionSystem.DetachPerformer<SpendManaGAction>();
         ActionSystem.DetachPerformer<GARefillMana>();
         ActionSystem. UnsubscribeReaction<GAEnemyTurn>(EnemyTurnPostReaction, ReactionTiming.POST);
 
@@ -35,9 +35,9 @@ public class ManaSystem : Singleton<ManaSystem>
     }
    
     //Performers
-    private IEnumerator SpendManaPerformer(GASpendMana gaSpendMana)
+    private IEnumerator SpendManaPerformer(SpendManaGAction spendManaGAction)
     {
-        currentMana -= gaSpendMana. Amount;
+        currentMana -= spendManaGAction. Amount;
         ui_Mana. UpdateManaText(currentMana);
         yield return null;
     }

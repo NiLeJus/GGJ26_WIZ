@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 
@@ -30,10 +31,8 @@ public class CardView : MonoBehaviour
     //logique quand la souris est sur la carte s'agrandit passe en version hovver et axe x diff
 
     void OnMouseEnter()
-    {
-
+    { 
         if (!Interactions.Instance.PlayerCanHover()) return;
-        
         Debug.Log("M enter");
         wrapper.SetActive(false);
         Vector3 pos = new(transform.position.x, -2, 0);
@@ -51,39 +50,63 @@ public class CardView : MonoBehaviour
     void OnMouseDown()
     {
         if (!Interactions.Instance.PlayerCanInteract()) return;
-        Interactions.Instance.PlayerIsDragging = true;
-        wrapper.SetActive(true);
-        CardViewHoverSystem.Instance.Hide();
-        dragStartPosition = transform.position;
-        dragStartRotation = transform.rotation;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.position = MouseUtil.GetMousePositionInWorldSpace(-1);
-        if (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, 10f, dropLayer))
+        if (Card.ManualTargetEffect != null)
         {
-        Debug.Log(hit.transform.name);
+            ManualTargetSystem.Instance.StartTargeting(transform.position);
         }
+        else
+        {
+                    Interactions.Instance.PlayerIsDragging = true;
+                    wrapper.SetActive(true);
+                    CardViewHoverSystem.Instance.Hide();
+                    dragStartPosition = transform.position;
+                    dragStartRotation = transform.rotation;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    transform.position = MouseUtil.GetMousePositionInWorldSpace(-1);
+
+        }
+
+
     }
 
     void OnMouseDrag()
     {
         if (!Interactions.Instance.PlayerCanInteract()) return;
+        if (Card.ManualTargetEffect != null) return;
         transform.position = MouseUtil.GetMousePositionInWorldSpace(-1); 
     }
 
     void OnMouseUp()
     {
         if (!Interactions.Instance.PlayerCanInteract()) return;
-        if (ManaSystem.Instance.HasEnoughMana(Card.Mana) && (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, 10f, dropLayer)))
+        if (Card.ManualTargetEffect != null)
         {
-            GAPlayCard gaPlayCard = new(Card);
-            ActionSystem.Instance.Perform(gaPlayCard);
+            EnemyView target = ManualTargetSystem.Instance?.EndTargeting(MouseUtil.GetMousePositionInWorldSpace(-1));
+            if (target != null && ManaSystem.Instance != null && ManaSystem.Instance.HasEnoughMana(Card.Mana))
+            {
+                PlayCardGA playCardGa = new(Card, target);
+                ActionSystem.Instance.Perform(playCardGa);
+            }
         }
-        else
-        {
-            transform.position = dragStartPosition;
-            transform.rotation = dragStartRotation ;
+        else{
+            
+        if (ManaSystem.Instance != null && ManaSystem.Instance.HasEnoughMana(Card.Mana) 
+            && (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, 10f, dropLayer)))
+                    {
+                        PlayCardGA playCardGa = new(Card);
+                        ActionSystem.Instance.Perform(playCardGa);
+                    }
+                    else
+                    {
+                        transform.position = dragStartPosition;
+                        transform.rotation = dragStartRotation ;
+                    }
+                    Interactions.Instance.PlayerIsDragging = false;
         }
-        Interactions.Instance.PlayerIsDragging = false;
+        
+        
+        
+
     }
 }
 
@@ -95,4 +118,3 @@ public class CardView : MonoBehaviour
 if (ManaSystem.Instance.HasEnoughMana(Card.Mana) &&(Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, 10f, dropLayer))
 
 */
-

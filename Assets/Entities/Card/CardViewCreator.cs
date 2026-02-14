@@ -1,8 +1,5 @@
 using UnityEngine;
-using System.Numerics;
 using DG.Tweening;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
 public class CardViewCreator : Singleton<CardViewCreator>
 {

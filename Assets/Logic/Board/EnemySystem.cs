@@ -8,6 +8,8 @@ public class EnemySystem : Singleton<EnemySystem>
 {
    [SerializeField] private float interTurnDelay = 2f;
    [SerializeField] public EnemyBoardView enemyBoardView;
+   [SerializeField] private GameObject victoryScreen; // Reference to the Victory Screen
+
    public List<EnemyView> Enemies => enemyBoardView.EnemyViews;
 
    void OnEnable()
@@ -25,24 +27,27 @@ public class EnemySystem : Singleton<EnemySystem>
       ActionSystem.DetachPerformer<GAKillEnemy>();
    }
    
-   private IEnumerator KillEnemyPerformer(GAKillEnemy killEnemyGA)
-   {
-      yield return enemyBoardView.RemoveEnemy(killEnemyGA. EnemyView);
-   }
+
    
-   private IEnumerator EnemyTurnPerformer(GAEnemyTurn enemyTurnGA)
+   private IEnumerator EnemyTurnPerformer(GAEnemyTurn gaEnemyTurn)
    {
       Debug.Log("Enemy Turn Started");
 
 
       foreach (var enemy in enemyBoardView.EnemyViews)
       {
-         GAAttackHero attackHeroGA = new(enemy);
-         ActionSystem.Instance.AddReaction(attackHeroGA);
+         int burnStacks = enemy.GetStatusEffectStack(StatusEffectType.BURN);
+         if (burnStacks > 0)
+         {
+            ApplyBurnGA applyBurnGa = new(burnStacks, enemy);
+            ActionSystem.Instance.AddReaction(applyBurnGa);
+         }
+         GAAttackHero gaAttackHero = new(enemy);
+         ActionSystem.Instance.AddReaction(gaAttackHero);
 
 
       }
-      Debug.Log("Enemy Turn Ends");
+
 
       yield return null;
 
@@ -56,8 +61,8 @@ public class EnemySystem : Singleton<EnemySystem>
       yield return tween.WaitForCompletion();
       attacker.transform.DOMoveX(attacker.transform.position.x + 1f, 0.25f);
       //deal damage
-      GADealDamage gaDealDamage = new(attacker.AttackPower, new() { HeroSystem.Instance.HeroView });
-      ActionSystem.Instance.AddReaction(gaDealDamage);
+      DealDamageGA dealDamageGa = new(attacker.AttackPower, new() { HeroSystem.Instance.HeroView }, gaAttackHero.Caster);
+      ActionSystem.Instance.AddReaction(dealDamageGa);
 
 
    }
@@ -66,5 +71,20 @@ public class EnemySystem : Singleton<EnemySystem>
 
       foreach (var enemyData in enemyDatas)
          enemyBoardView.AddEnemy(enemyData);
+   }
+   
+   private IEnumerator KillEnemyPerformer(GAKillEnemy gaKillEnemy)
+   {
+      yield return enemyBoardView.RemoveEnemy(gaKillEnemy. EnemyView);
+      
+      // Check for victory
+      if (enemyBoardView.EnemyViews.Count == 0)
+      {
+         Debug.Log("Victory!");
+         if (victoryScreen != null)
+         {
+            victoryScreen.SetActive(true);
+         }
+      }
    }
 }

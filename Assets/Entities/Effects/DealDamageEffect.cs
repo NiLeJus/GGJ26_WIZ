@@ -7,10 +7,10 @@ public class DealDamageEffect : Effect
 {
     [SerializeField] private int damageAmount;
 
-    public override GameAction GetGameAction()  // Correction: "GamcAction" → "GameAction"
+    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster) 
     {
-        List<CombatantView> targets = new(EnemySystem.Instance.Enemies);  // Tous ennemis actuels
-        GADealDamage gaDealDamage = new(damageAmount, targets);  // Correction: supprimé doublon "ealDamage"
-        return gaDealDamage;
+      
+        DealDamageGA dealDamageGa = new(damageAmount, targets, caster); 
+        return dealDamageGa;
     }
 }

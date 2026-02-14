@@ -16,12 +16,22 @@ MonoBehaviour:
   <Description>k__BackingField: Draw 2 cards
   <Mana>k__BackingField: 2
   <Image>k__BackingField: {fileID: 21300000, guid: b32b85b3fb10c3645ba7604f8fff7c60, type: 3}
-  <Effects>k__BackingField:
-  - rid: 2964819535347319075
+  <ManualTargetEffect>k__BackingField:
+    rid: -2
+  <OtherEffects>k__BackingField:
+  - <TargetMode>k__BackingField:
+      rid: 7024276386729689359
+    <Effect>k__BackingField:
+      rid: 7024276386729689360
   references:
     version: 2
     RefIds:
-    - rid: 2964819535347319075
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7024276386729689359
+      type: {class: NoTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7024276386729689360
       type: {class: DrawCardsEffect, ns: , asm: Assembly-CSharp}
       data:
         drawAnount: 2

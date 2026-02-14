@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameAction : MonoBehaviour
+public class GameAction
 {
     public List<GameAction> PreReactions { get; set; }
     

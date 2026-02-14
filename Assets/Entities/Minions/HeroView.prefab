@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf08b097baa78ec4f988eb6187d825bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroView
-  healthText: {fileID: 4362878232560344002}
+  healthText: {fileID: 4090736025491700883}
+  healthBarShrink: {fileID: 1908057543936621717}
   spriteRenderer: {fileID: 6545585909088643655}
+  statusEffectsUI: {fileID: 5670360481585191330}
 --- !u!1001 &2153219928698422527
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +57,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2973512517643850355}
     m_Modifications:
+    - target: {fileID: 3245762813602706404, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245762813602706404, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245762813602706404, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245762813602706404, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245762813602706404, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502234745030402152, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502234745030402152, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131660089443970744, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131660089443970744, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d1353d6f7c441db469c36c10251d3b93, type: 3}
+    - target: {fileID: 5220834724501881735, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.47
+      objectReference: {fileID: 0}
     - target: {fileID: 5541153806166288514, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.149
@@ -95,26 +137,84 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5541153806166288514, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479521727037205590, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479521727037205590, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479521727037205590, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479521727037205590, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7613366376911619264, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
       propertyPath: m_Name
       value: CombatantViewBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977637196384487385, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977637196384487385, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977637196384487385, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977637196384487385, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
---- !u!114 &4362878232560344002 stripped
+--- !u!114 &1908057543936621717 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2408802098366357309, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 548047344483186794, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
   m_PrefabInstance: {fileID: 2153219928698422527}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 75acf55d1f6193b47addd33c8fc16089, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
+  m_EditorClassIdentifier: 
+--- !u!114 &4090736025491700883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2676528649490921580, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+  m_PrefabInstance: {fileID: 2153219928698422527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &5670360481585191330 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6003558669572169053, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}
+  m_PrefabInstance: {fileID: 2153219928698422527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83de24ef96b921f44b723b8eab11d830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectsUI
 --- !u!4 &5838886245098646653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5541153806166288514, guid: b8775363f6db5e344aa921adc83bb23e, type: 3}

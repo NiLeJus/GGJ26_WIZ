@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -19,26 +20,21 @@ public class CardSystem : Singleton<CardSystem>
   //Lifecycle Action System
   private void OnEnable()
   {
-    Debug.Log("🔥 CardSystem OnEnable - Attaching performers");
+    Debug.Log("CardSystem OnEnable - Attaching performers");
 
     
     ActionSystem.AttachPerformer<GADrawCards>(DrawCardsPerformer);
     ActionSystem.AttachPerformer<GADiscardAllCards>(DiscardAllCardsPerformer);
-    ActionSystem.AttachPerformer<GAPlayCard>(PlayCardPerformer);
+    ActionSystem.AttachPerformer<PlayCardGA>(PlayCardPerformer);
     
-    
-    ActionSystem.SubscribeReaction<GAEnemyTurn>(EnemyTurnPreReaction, ReactionTiming.PRE);
-    ActionSystem.SubscribeReaction<GAEnemyTurn>(EnemyTurnPostReaction, ReactionTiming.POST);
   }
 
   private void OnDisable()
   {
     ActionSystem.DetachPerformer<GADrawCards>();
     ActionSystem.DetachPerformer<GADiscardAllCards>();
-    ActionSystem.DetachPerformer<GAPlayCard>();
-    
-    ActionSystem.UnsubscribeReaction<GAEnemyTurn>(EnemyTurnPreReaction, ReactionTiming.PRE);
-    ActionSystem.UnsubscribeReaction<GAEnemyTurn>(EnemyTurnPostReaction, ReactionTiming.POST);
+    ActionSystem.DetachPerformer<PlayCardGA>();
+
   }
 
   
@@ -57,7 +53,8 @@ public class CardSystem : Singleton<CardSystem>
      if (notDrawnAmount > 0)
      {
        RefillDeck();
-       for (int i = 0; i < notDrawnAmount; i++)
+       int amountAfterRefill = Mathf.Min(notDrawnAmount, drawPile.Count);
+       for (int i = 0; i < amountAfterRefill; i++)
        {
          yield return DrawCard();
        }
@@ -69,10 +66,31 @@ public class CardSystem : Singleton<CardSystem>
     drawPile.AddRange(discardPile);
     discardPile.Clear();
   }
+  public void Setup(List<CardData> deckData)
+  {
+    Debug.Log($"Setting up CardSystem with {deckData.Count} cards.");
+    foreach (var cardData in deckData)
+    {
+      Card card = new(cardData);
+      drawPile.Add(card);
+    }
+  }
 
+  
   private IEnumerator DrawCard()
   {
+    Debug.Log($"DrawPile count: {drawPile.Count}");
+    if (drawPile.Count == 0)
+    {
+        Debug.LogError("Draw pile is empty, cannot draw a card.");
+        yield break; // Stop the coroutine
+    }
     Card card = drawPile.Draw();
+    if (card == null)
+    {
+        Debug.LogError("Draw() returned a null card!");
+        yield break; // Stop the coroutine
+    }
     hand.Add(card);
     CardView cardView =
       CardViewCreator.Instance.CreateCardView(card, drawPilePoint.position,
@@ -87,7 +105,7 @@ public class CardSystem : Singleton<CardSystem>
   {
     foreach (var card in hand)
     {
-      discardPile.Add(card);
+
       CardView cardView = handView.RemoveCard(card);
       yield return DiscardCard(cardView);
     }
@@ -96,50 +114,60 @@ public class CardSystem : Singleton<CardSystem>
 
   public IEnumerator DiscardCard(CardView cardView)
   {
+    discardPile.Add(cardView.Card);
     cardView.transform.DOScale(0, 0.15f).SetEase(Ease.OutElastic);
     Tween tween = cardView.transform.DOScale(1, 0.15f);
     yield return tween.WaitForCompletion();
     Destroy(cardView.gameObject);
   }
   
-  //Enemy 
 
-  private void EnemyTurnPreReaction(GAEnemyTurn gaEnemyTurn)
-  {
-    GADiscardAllCards gaDiscardAllCards = new();
-    ActionSystem.Instance.AddReaction(gaDiscardAllCards);
-  }
 
-  private void EnemyTurnPostReaction(GAEnemyTurn gaEnemyTurn)
+
+ private IEnumerator PlayCardPerformer(PlayCardGA playCardGa) 
   {
-    Debug.Log("➕ Adding DrawCards to EnemyTurn PostReactions");
-    GADrawCards gaDrawCards = new(5);
-    ActionSystem.Instance.AddReaction(gaDrawCards);
-  }
-  
- private IEnumerator PlayCardPerformer(GAPlayCard gaPlayCard) 
-  {
-    hand.Remove(gaPlayCard.Card);
-    CardView cardView = handView.RemoveCard(gaPlayCard.Card);
-    yield return DiscardCard(cardView);
+    if (playCardGa.Card == null)
+    {
+        Debug.LogError("PlayCardPerformer: La carte est null !");
+        yield break;
+    }
+
+    hand.Remove(playCardGa.Card);
+    
+    if (handView != null)
+    {
+        CardView cardView = handView.RemoveCard(playCardGa.Card);
+        if (cardView != null) yield return DiscardCard(cardView);
+    }
+    else
+    {
+        Debug.LogError("PlayCardPerformer: 'handView' n'est pas assigné dans l'inspecteur de CardSystem !");
+    }
     
     //Spending mana Here
-    GASpendMana gaSpendMana = new(gaPlayCard.Card.Mana);
-    ActionSystem.Instance.AddReaction(gaSpendMana);
-    
-    foreach (var effect in gaPlayCard.Card.Effects)
+    SpendManaGAction spendManaGAction = new(playCardGa.Card.Mana);
+    ActionSystem.Instance.AddReaction(spendManaGAction);
+
+    if (playCardGa.Card.ManualTargetEffect != null)
     {
-      GAPerformEffect gaPerformEffect = new (effect);
+      GAPerformEffect gaPerformEffect = new(playCardGa.Card.ManualTargetEffect, new() { playCardGa.ManualTarget });
       ActionSystem.Instance.AddReaction(gaPerformEffect);
     }
+
+    if (playCardGa.Card.OtherEffects != null)
+    {
+      foreach (var effectWrapper in playCardGa.Card.OtherEffects)
+      {
+        List<CombatantView> targets = effectWrapper.TargetMode.GetTargets();
+        GAPerformEffect gaPerformEffect = new(effectWrapper.Effect, targets);
+        ActionSystem.Instance.AddReaction(gaPerformEffect);
+      }
+    }
+    
+    /*foreach (var gaPerformEffect in from effectWrapper in playCardGa.Card.OtherEffects let targets = effectWrapper.TargetMode.GetTargets() select new GAPerformEffect(effectWrapper.Effect, targets))
+    {
+      ActionSystem.Instance.AddReaction(gaPerformEffect);
+    }*/
   }
 
-  public void Setup(List<CardData> deckData)
-  {
-    foreach (var cardData in deckData)
-    {
-      Card card = new(cardData);
-      drawPile.Add(card);
-    }
-  }
 }

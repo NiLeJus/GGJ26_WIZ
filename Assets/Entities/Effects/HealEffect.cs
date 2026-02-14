@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 
@@ -7,15 +7,14 @@ public class HealEffect : Effect
 {
     [SerializeField] private int healAmount;
 
-    public override GameAction GetGameAction()
+    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster)
     {
-        List<CombatantView> targets = new();
-        // Assuming HeroSystem is available as it is referenced in EnemySystem
-        if (HeroSystem.Instance != null && HeroSystem.Instance.HeroView != null)
+        // If no targets are provided (e.g., NoTM), target the caster (Self/Hero)
+        if (targets == null || targets.Count == 0)
         {
-            targets.Add(HeroSystem.Instance.HeroView);
+            targets = new List<CombatantView> { caster };
         }
-        
+
         GAHeal gaHeal = new(healAmount, targets);
         return gaHeal;
     }

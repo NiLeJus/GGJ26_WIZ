@@ -17,6 +17,6 @@ public class EnemyView : CombatantView
 
     private void UpdateAttackText()
     {
-        attackText.text = "ATK: " + AttackPower;
+        attackText.text = " : " + AttackPower;
     }
 }
