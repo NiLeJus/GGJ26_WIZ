@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Claws
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   <Title>k__BackingField: Claws
-  <Description>k__BackingField: "D\xE9chire les cibles"
+  <Description>k__BackingField: 4 points of damage to all enemies
   <Mana>k__BackingField: 2
   <Image>k__BackingField: {fileID: 21300000, guid: c56a9f767293b2048a1441796e31e37a, type: 3}
   <ManualTargetEffect>k__BackingField:
@@ -31,7 +31,7 @@ MonoBehaviour:
     - rid: 7024276393041854553
       type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageAmount: 20
+        damageAmount: 3
     - rid: 7024276393041854555
       type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
       data: 

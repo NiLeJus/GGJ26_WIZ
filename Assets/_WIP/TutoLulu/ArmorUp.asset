@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff60472eae38d8845b1175182253748e, type: 3}
   m_Name: ArmorUp
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  <Title>k__BackingField: Blood Shield
+  <Title>k__BackingField: Shield
   <Description>k__BackingField: Gain 6 armor
-  <Mana>k__BackingField: 2
+  <Mana>k__BackingField: 1
   <Image>k__BackingField: {fileID: 21300000, guid: 7f095ab986d96a1459d9abfb51d29793, type: 3}
   <ManualTargetEffect>k__BackingField:
     rid: -2

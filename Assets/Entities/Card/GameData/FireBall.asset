@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff60472eae38d8845b1175182253748e, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  <Title>k__BackingField: One shot
-  <Description>k__BackingField: Destroy enemy
-  <Mana>k__BackingField: 3
+  <Title>k__BackingField: Fire Ball
+  <Description>k__BackingField: Apply 4 stacks of fire to an enemy,
+  <Mana>k__BackingField: 2
   <Image>k__BackingField: {fileID: 21300000, guid: 9e4a3eb58ebe9b64fad460c164cb8e26, type: 3}
   <ManualTargetEffect>k__BackingField:
-    rid: 7024276386729689357
+    rid: 7024276539432501332
   <OtherEffects>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 7024276386729689357
-      type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
+    - rid: 7024276539432501332
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
       data:
-        damageAmount: 30
+        statusEffectType: 1
+        stackCount: 4
